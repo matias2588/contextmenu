@@ -1,7 +1,7 @@
 {
   "project": {
-    "version": "1.0.0-beta.28.3",
-    "name": "matias2588-contextmenu"
+    "version": "0.0.10",
+    "name": "matias-context-menu-docs"
   },
   "apps": [
     {
@@ -13,14 +13,16 @@
       ],
       "index": "index.html",
       "main": "main.ts",
-      "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
+      "mobile": false,
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../lib/highlight/highlight.pack.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
@@ -28,28 +30,20 @@
       }
     }
   ],
+  "addons": [],
+  "packages": [],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
     }
   },
-  "lint": [
-    {
-      "files": "src/**/*.ts",
-      "project": "src/tsconfig.json"
-    },
-    {
-      "files": "e2e/**/*.ts",
-      "project": "e2e/tsconfig.json"
-    }
-  ],
   "test": {
     "karma": {
       "config": "./karma.conf.js"
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "prefixInterfaces": false,
     "inline": {
       "style": false,

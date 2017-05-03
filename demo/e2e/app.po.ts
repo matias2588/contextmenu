@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class Matias2588ContextmenuPage {
+export class Angular2SelectDocsPage {
   navigateTo() {
     return browser.get('/');
   }

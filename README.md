@@ -1,31 +1,147 @@
-# Matias2588Contextmenu
+# Angular 2 select component
+[![npm version](https://badge.fury.io/js/angular2-select.svg)](https://badge.fury.io/js/angular2-select)
+[![Build Status](https://travis-ci.org/basvandenberg/angular2-select.svg?branch=master)](https://travis-ci.org/basvandenberg/angular2-select)
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
+A native select component for angular 2, based on the select2 JQuery plugin.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+See the [angular2-select] page for example uses or try it with this [plunker].
 
-## Code scaffolding
+The beta version is here! With new features and bug fixes. See the [changelog]
+for more details.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+*Disclaimer*: The beta version is a complete rewrite of the alpha version, so
+new bugs are to be expected. Please do not yet rely on this beta version for
+production releases.
 
-## Build
+- [Getting started](#getting-started)
+- [Input properties](#input-properties)
+- [Output events](#output-events)
+- [Methods](#methods)
+- [Limitations](#limitations)
+- [Develop](#develop)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Getting started
 
-## Running unit tests
+### Install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+For npm users:
+```
+npm install --save angular2-select
+```
 
-## Running end-to-end tests
+For yarn users:
+```
+yarn add angular2-select
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+### Configuration
 
-## Deploying to GitHub Pages
+#### Angular cli
 
-Run `ng github-pages:deploy` to deploy to GitHub Pages.
+After installation, no additional configuration is needed. Import the
+`SelectModule` and define it as one of the imports of your application module:
 
-## Further help
+```typescript
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {SelectModule} from 'angular2-select';
 
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+import {AppComponent} from './app.component';
+
+@NgModule({
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule
+        SelectModule
+    ],
+    bootstrap: [
+        AppComponent
+    ]
+})
+export class AppModule {}
+```
+
+#### Systemjs
+
+*Not yet tested for the beta version.*
+
+In `systemjs.config.js` add `angular2-select` to map and package:
+
+```javascript
+var map = {
+	'angular2-select': 'node_modules/angular2-select'
+};
+
+var packages = {
+	'angular2-select': {
+		main: 'index.js',
+		defaultExtension: 'js'
+	}
+};
+```
+
+## Input properties
+
+| Name               | Type              | Default               | Description                                                                                |
+| ------------------ | ----------------- | --------------------- | ------------------------------------------------------------------------------------------ |
+| options            | `Array<option>`\* |                       | List of select option.                                                                     |
+| allowClear         | `boolean`         | `false`               | Only applies to single select. If set to true, a clickable clear selection cross is shown. |
+| disabled           | `boolean`         | `false`               | If set to true, the select component is disabled.                                          |
+| highlightColor     | `string`          | `#2196f3`             | Background color of highlighted option.                                                    |
+| highlightTextColor | `string`          | `#fff`                | Text color of highlighted option.                                                          |
+| multiple           | `boolean`         | `false`               | If set to true, the select component is multi-select, otherwise single select.             |
+| noFilter           | `number`          | `0`                   | Filter is hidden if the number of options is less than the given number.                   |
+| notFoundMsg        | `string`          | `"No results found"`  | The message shown if no options are found for the current filter input value.              |
+| placeholder        | `string`          | `""`                  | Placeholder text that is shown if no options are selected.
+
+\* `option` is an object with value and label (`{value: string, label: string}`)
+
+## Output events
+
+| Name          | Value                      | Description                                                              |
+| ------------- | -------------------------- | ------------------------------------------------------------------------ |
+| opened        | `null`                     | If the select drop down is opened.                                       |
+| closed        | `null`                     | If the select drop down is closed.                                       |
+| selected      | `option`\*                 | If an options is selected, returning the selected option.                |
+| deselected    | `option`\* or `[option]`\* | If one or more options are deselected, returning the selected option(s). |
+| noOptionsFound| `null`                     | When the filter result changes to 'no results found'.                    |
+
+\* `option` is an object with value and label (`{value: string, label: string}`)
+
+## Methods
+
+| Name          | Parameters            | Description                             |
+| ------------- | --------------------- | --------------------------------------- |
+| open          | -                     | Open the select drop down.              |
+| close         | -                     | Close the select drop down.             |
+| clear         | -                     | Deselect all selected options.          |
+| select        | `value: string`       | Select the option with the given value. |
+
+## Limitations
+
+### Scalability
+
+For now, this component is not suitable for large numbers of options. If the
+dropdown is opened, all options are added to the DOM, which will cause browser
+performance issues for large numbers of options. Therefore, if you have more
+that a few hundred options, then you will be better of with another solution.
+
+### Drop down positioning
+
+TODO
+
+## Develop
+
+Global installations of `gulp` and `yarn` are required for development. Clone
+or fork the repository and run:
+
+```
+yarn install
+gulp build
+```
+
+[angular2-select]: https://basvandenberg.github.io/angular2-select
+[plunker]: https://plnkr.co/edit/JcG8uO9nIfSGMEKdLf0Y?p=preview
+[changelog]: https://github.com/basvandenberg/angular2-select/releases
